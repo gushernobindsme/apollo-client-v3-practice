@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Button, HTMLTable, Label } from "@blueprintjs/core";
-import { useSharks } from "../graphql/hooks";
-import Ratings from "../components/Ratings";
+import React, { useState } from 'react';
+import { Button, HTMLTable, Label } from '@blueprintjs/core';
+import { useSharks } from '../graphql/hooks';
+import Ratings from '../components/Ratings';
 
 const Sharks: React.FC = () => {
   const { loading, error, data, createShark, updateShark } = useSharks();
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -61,7 +61,7 @@ const Sharks: React.FC = () => {
           className="btn btn-primary"
           onClick={async () => {
             await createShark(name);
-            setName("");
+            setName('');
           }}
         >
           Submit

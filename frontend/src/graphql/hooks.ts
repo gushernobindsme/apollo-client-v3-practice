@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from "@apollo/client";
-import SharksModel from "./models";
+import { useMutation, useQuery } from '@apollo/client';
+import SharksModel from './models';
 import {
   CREATE_SHARK,
   GET_SHARKS,
   SHARK_FRAGMENT,
   UPDATE_SHARK,
-} from "./documents";
-import { CreateSharkInput, UpdateSharkInput } from "./graphql.schema";
+} from './documents';
+import { CreateSharkInput, UpdateSharkInput } from './graphql.schema';
 
 export const useSharks = () => {
   const { loading, error, data } = useQuery<SharksModel>(GET_SHARKS, {});

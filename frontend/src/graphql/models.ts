@@ -1,4 +1,4 @@
-import { Shark } from "./graphql.schema";
+import { Shark } from './graphql.schema';
 
 interface SharksModel {
   sharks: Shark[];
