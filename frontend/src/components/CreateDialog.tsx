@@ -2,23 +2,34 @@ import React, { useState } from 'react';
 import { Button, Classes, FormGroup, InputGroup } from '@blueprintjs/core';
 
 export type CreateDialogProps = {
-  mutation(name: string): void;
+  mutation(originalTitle: string, japaneseTitle: string): void;
   close(): void;
 };
 
 const CreateDialog: React.FC<CreateDialogProps> = ({ mutation, close }) => {
-  const [name, setName] = useState('');
+  const [originalTitle, setOriginalTitle] = useState('');
+  const [japaneseTitle, setJapaneseTitle] = useState('');
 
   return (
     <>
       <div className={Classes.DIALOG_BODY}>
-        <FormGroup label="Name" labelFor="name">
+        <FormGroup label="OriginalTitle" labelFor="originalTitle">
           <InputGroup
-            id="name"
-            defaultValue={name}
-            placeholder="Your favorite shark movie"
+            id="originalTitle"
+            defaultValue={originalTitle}
+            placeholder="Shark Exocist"
             onChange={(event: any) => {
-              setName(event.target.value);
+              setOriginalTitle(event.target.value);
+            }}
+          />
+        </FormGroup>
+        <FormGroup label="JapaneseTitle" labelFor="japaneseTitle">
+          <InputGroup
+            id="japaneseTitle"
+            defaultValue={japaneseTitle}
+            placeholder="デビルシャーク"
+            onChange={(event: any) => {
+              setJapaneseTitle(event.target.value);
             }}
           />
         </FormGroup>
@@ -28,8 +39,9 @@ const CreateDialog: React.FC<CreateDialogProps> = ({ mutation, close }) => {
           type="submit"
           className="btn btn-primary"
           onClick={async () => {
-            await mutation(name);
-            setName('');
+            await mutation(originalTitle, japaneseTitle);
+            setOriginalTitle('');
+            setJapaneseTitle('');
             close();
           }}
         >

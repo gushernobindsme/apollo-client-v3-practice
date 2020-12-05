@@ -36,9 +36,10 @@ export const useSharks = () => {
     },
   });
 
-  const createShark = async (name: string) => {
+  const createShark = async (originalTitle: string, japaneseTitle: string) => {
     const input = new CreateSharkInput();
-    input.name = name;
+    input.originalTitle = originalTitle;
+    input.japaneseTitle = japaneseTitle;
     await createSharkMutation({ variables: { input } });
   };
 

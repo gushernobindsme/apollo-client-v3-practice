@@ -25,7 +25,8 @@ const Sharks: React.FC = () => {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>OriginalTitle</th>
+            <th>JapaneseTitle</th>
             <th>Rate</th>
           </tr>
         </thead>
@@ -35,7 +36,8 @@ const Sharks: React.FC = () => {
               return (
                 <tr key={shark.id}>
                   <th>{shark.id}</th>
-                  <td>{shark.name}</td>
+                  <td>{shark.originalTitle}</td>
+                  <td>{shark.japaneseTitle}</td>
                   <td>
                     {shark.id && (
                       <Ratings

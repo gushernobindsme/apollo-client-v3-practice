@@ -7,7 +7,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export class CreateSharkInput {
-    name?: string;
+    originalTitle?: string;
+    japaneseTitle?: string;
 }
 
 export class UpdateSharkInput {
@@ -29,6 +30,7 @@ export abstract class IMutation {
 
 export class Shark {
     id?: number;
-    name?: string;
+    originalTitle?: string;
+    japaneseTitle?: string;
     rate?: number;
 }

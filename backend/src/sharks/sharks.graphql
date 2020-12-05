@@ -10,12 +10,14 @@ type Mutation {
 
 type Shark {
     id: Int
-    name: String
+    originalTitle: String
+    japaneseTitle: String
     rate: Int
 }
 
 input CreateSharkInput {
-    name: String
+    originalTitle: String
+    japaneseTitle: String
 }
 
 input UpdateSharkInput {
