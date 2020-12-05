@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { Button, HTMLTable, Label } from '@blueprintjs/core';
+import { Button, Dialog, HTMLTable } from '@blueprintjs/core';
 import { useSharks } from '../graphql/hooks';
 import Ratings from '../components/Ratings';
+import CreateDialog from '../components/CreateDialog';
 
 const Sharks: React.FC = () => {
   const { loading, error, data, createShark, updateShark } = useSharks();
 
-  const [name, setName] = useState('');
+  const [showDialog, setShowDialog] = useState(false);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return (
     <div>
-      <h3>Movie list</h3>
+      <Button
+        onClick={() => {
+          setShowDialog(true);
+        }}
+      >
+        add new shark movie
+      </Button>
       <HTMLTable striped={true}>
         <thead>
           <tr>
@@ -43,30 +50,20 @@ const Sharks: React.FC = () => {
             })}
         </tbody>
       </HTMLTable>
-      <div>
-        <h3>Create new movies</h3>
-        <div>
-          <Label>Title</Label>
-          <input
-            defaultValue={name}
-            type="text"
-            className="bp3-input"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-        </div>
-        <Button
-          type="submit"
-          className="btn btn-primary"
-          onClick={async () => {
-            await createShark(name);
-            setName('');
+      <Dialog
+        isOpen={showDialog}
+        onClose={() => {
+          setShowDialog(false);
+        }}
+        title="Please enter the shark movie information"
+      >
+        <CreateDialog
+          mutation={createShark}
+          close={() => {
+            setShowDialog(false);
           }}
-        >
-          Submit
-        </Button>
-      </div>
+        />
+      </Dialog>
     </div>
   );
 };
