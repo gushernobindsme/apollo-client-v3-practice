@@ -5,7 +5,14 @@ import Ratings from '../components/Ratings';
 import CreateDialog from '../components/CreateDialog';
 
 const Sharks: React.FC = () => {
-  const { loading, error, data, fetchMore, createShark, updateShark } = useSharks();
+  const {
+    loading,
+    error,
+    data,
+    fetchMore,
+    createShark,
+    updateShark,
+  } = useSharks();
 
   const [showDialog, setShowDialog] = useState(false);
 
@@ -52,13 +59,15 @@ const Sharks: React.FC = () => {
             })}
         </tbody>
       </HTMLTable>
-      <Button onClick={async () => {
-        await fetchMore({
-          variables: {
-            offset: data?.sharks.length
-          }
-        })
-      }}>
+      <Button
+        onClick={async () => {
+          await fetchMore({
+            variables: {
+              offset: data?.sharks.length,
+            },
+          });
+        }}
+      >
         fetch more
       </Button>
       <Dialog
