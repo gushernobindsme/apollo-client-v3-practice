@@ -1,0 +1,24 @@
+type Query {
+    sharks: [Shark]
+    shark(id: Int!): Shark
+}
+
+type Mutation {
+    createShark(input: CreateSharkInput): Shark
+    updateShark(input: UpdateSharkInput): Shark
+}
+
+type Shark {
+    id: Int
+    name: String
+    rate: Int
+}
+
+input CreateSharkInput {
+    name: String
+}
+
+input UpdateSharkInput {
+    id: Int
+    rate: Int
+}
