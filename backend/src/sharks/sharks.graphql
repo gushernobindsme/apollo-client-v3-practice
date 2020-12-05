@@ -1,5 +1,5 @@
 type Query {
-    sharks: [Shark]
+    sharks(offset: Int, limit: Int): [Shark]
     shark(id: Int!): Shark
 }
 

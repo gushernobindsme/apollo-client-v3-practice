@@ -228,6 +228,10 @@ export class SharksService {
     return this.sharks;
   }
 
+  findByOffset(offset: number, limit: number): Shark[] {
+    return this.sharks.slice(offset, offset + limit);
+  }
+
   getById(id: number): Shark {
     return this.sharks.find((shark) => shark.id === id);
   }

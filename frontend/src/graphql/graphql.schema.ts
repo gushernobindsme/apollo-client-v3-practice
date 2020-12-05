@@ -1,3 +1,4 @@
+
 /** ------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
  * -------------------------------------------------------
@@ -16,7 +17,7 @@ export class UpdateSharkInput {
 }
 
 export abstract class IQuery {
-  abstract sharks(): Shark[] | Promise<Shark[]>;
+  abstract sharks(offset?: number, limit?: number): Shark[] | Promise<Shark[]>;
 
   abstract shark(id: number): Shark | Promise<Shark>;
 }

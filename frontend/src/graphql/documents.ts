@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_SHARKS = gql`
-  query getSharks {
-    sharks {
+  query getSharks($offset: Int, $limit: Int) {
+    sharks(offset: $offset, limit: $limit) {
       id
       originalTitle
       japaneseTitle

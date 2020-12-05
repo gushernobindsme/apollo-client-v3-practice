@@ -9,7 +9,9 @@ import {
 import { CreateSharkInput, UpdateSharkInput } from './graphql.schema';
 
 export const useSharks = () => {
-  const { loading, error, data } = useQuery<SharksModel>(GET_SHARKS, {});
+  const { loading, error, data, fetchMore } = useQuery<SharksModel>(GET_SHARKS, {
+    variables: { offset: 0, limit: 10 },
+  });
 
   const [createSharkMutation] = useMutation(CREATE_SHARK, {
     update(cache, { data: { createShark } }) {
@@ -54,6 +56,7 @@ export const useSharks = () => {
     loading,
     error,
     data,
+    fetchMore,
     createShark,
     updateShark,
   };

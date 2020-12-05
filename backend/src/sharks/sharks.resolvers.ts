@@ -8,15 +8,15 @@ export class SharksResolvers {
   constructor(private readonly sharksService: SharksService) {}
 
   @Query('sharks')
-  async findAll() {
-    return this.sharksService.findAll();
+  async findAll(
+    @Args('offset', ParseIntPipe) offset: number,
+    @Args('limit', ParseIntPipe) limit: number,
+  ): Promise<Shark[]> {
+    return this.sharksService.findByOffset(offset, limit);
   }
 
   @Query('shark')
-  async getById(
-    @Args('id', ParseIntPipe)
-    id: number,
-  ): Promise<Shark> {
+  async getById(@Args('id', ParseIntPipe) id: number): Promise<Shark> {
     return this.sharksService.getById(id);
   }
 
