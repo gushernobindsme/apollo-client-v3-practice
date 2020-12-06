@@ -14,36 +14,36 @@ const Table: React.FC<TableProps> = ({ data, fetchMore, updateShark }) => {
     <>
       <HTMLTable striped={true}>
         <thead>
-        <tr>
-          <th>Id</th>
-          <th>OriginalTitle</th>
-          <th>JapaneseTitle</th>
-          <th>Rate</th>
-        </tr>
+          <tr>
+            <th>Id</th>
+            <th>OriginalTitle</th>
+            <th>JapaneseTitle</th>
+            <th>Rate</th>
+          </tr>
         </thead>
         <tbody>
-        {data &&
-        data.sharks &&
-        data.sharks.edges &&
-        data.sharks.edges.map((shark) => {
-          const node = shark.node;
-          return (
-            <tr key={node?.id}>
-              <th>{node?.id}</th>
-              <td>{node?.originalTitle}</td>
-              <td>{node?.japaneseTitle}</td>
-              <td>
-                {node?.id && (
-                  <Ratings
-                    id={node.id}
-                    rate={node.rate || 0}
-                    mutation={updateShark}
-                  />
-                )}
-              </td>
-            </tr>
-          );
-        })}
+          {data &&
+            data.sharks &&
+            data.sharks.edges &&
+            data.sharks.edges.map((shark) => {
+              const node = shark.node;
+              return (
+                <tr key={node?.id}>
+                  <th>{node?.id}</th>
+                  <td>{node?.originalTitle}</td>
+                  <td>{node?.japaneseTitle}</td>
+                  <td>
+                    {node?.id && (
+                      <Ratings
+                        id={node.id}
+                        rate={node.rate || 0}
+                        mutation={updateShark}
+                      />
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </HTMLTable>
       {data && data.sharks.pageInfo?.hasNextPage && (

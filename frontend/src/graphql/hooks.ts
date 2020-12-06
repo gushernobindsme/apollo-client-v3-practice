@@ -17,10 +17,12 @@ export const useSharks = () => {
   );
 
   const [createSharkMutation] = useMutation(CREATE_SHARK, {
-    refetchQueries: [{
-      query: GET_SHARKS,
-      variables: { cursor: '' },
-    }],
+    refetchQueries: [
+      {
+        query: GET_SHARKS,
+        variables: { cursor: '' },
+      },
+    ],
   });
 
   const [updateSharkMutation] = useMutation(UPDATE_SHARK, {
