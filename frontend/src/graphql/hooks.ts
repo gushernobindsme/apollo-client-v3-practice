@@ -12,24 +12,15 @@ export const useSharks = () => {
   const { loading, error, data, fetchMore } = useQuery<SharksModel>(
     GET_SHARKS,
     {
-      variables: { offset: 0, limit: 10 },
+      variables: { cursor: '' },
     },
   );
 
   const [createSharkMutation] = useMutation(CREATE_SHARK, {
-    update(cache, { data: { createShark } }) {
-      const newShark = {
-        id: createShark.id,
-        originalTitle: createShark.originalTitle,
-        japaneseTitle: createShark.japaneseTitle,
-      };
-      cache.writeQuery({
-        query: GET_SHARKS,
-        data: {
-          sharks: [...(data?.sharks || []), newShark],
-        },
-      });
-    },
+    refetchQueries: [{
+      query: GET_SHARKS,
+      variables: { cursor: '' },
+    }],
   });
 
   const [updateSharkMutation] = useMutation(UPDATE_SHARK, {

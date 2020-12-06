@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSharkInput, Shark, UpdateSharkInput } from '../graphql.schema';
+import {
+  CreateSharkInput,
+  Shark,
+  SharkConnection,
+  UpdateSharkInput,
+} from '../graphql.schema';
 
 @Injectable()
 export class SharksService {
@@ -230,6 +235,29 @@ export class SharksService {
 
   findByOffset(offset: number, limit: number): Shark[] {
     return this.sharks.slice(offset, offset + limit);
+  }
+
+  findByCursor(first: number, after?: string): SharkConnection {
+    let targetId = 0;
+    if (after) {
+      targetId = parseInt(Buffer.from(after, 'base64').toString());
+    }
+    const offset = this.sharks.findIndex((shark) => shark.id === targetId) + 1;
+    const sharks = this.sharks.slice(offset, offset + first);
+    const edges = sharks.map((shark) => {
+      return {
+        node: shark,
+        cursor: Buffer.from(shark.id.toString()).toString('base64'),
+      };
+    });
+    const pageInfo = {
+      endCursor: edges.slice(-1)[0].cursor,
+      hasNextPage: this.sharks.length > offset + first,
+    };
+    return {
+      edges,
+      pageInfo,
+    };
   }
 
   getById(id: number): Shark {

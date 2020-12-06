@@ -1,13 +1,13 @@
 import React from 'react';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
-import { offsetLimitPagination } from "@apollo/client/utilities"
+import {relayStylePagination} from "@apollo/client/utilities"
 import Sharks from "./pages/Sharks";
 
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        sharks: offsetLimitPagination(),
+        sharks: relayStylePagination(),
       }
     }
   }

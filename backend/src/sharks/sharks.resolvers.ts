@@ -1,6 +1,11 @@
 import { ParseIntPipe } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateSharkInput, Shark, UpdateSharkInput } from '../graphql.schema';
+import {
+  CreateSharkInput,
+  Shark,
+  SharkConnection,
+  UpdateSharkInput,
+} from '../graphql.schema';
 import { SharksService } from './sharks.service';
 
 @Resolver('Shark')
@@ -9,10 +14,10 @@ export class SharksResolvers {
 
   @Query('sharks')
   async findAll(
-    @Args('offset', ParseIntPipe) offset: number,
-    @Args('limit', ParseIntPipe) limit: number,
-  ): Promise<Shark[]> {
-    return this.sharksService.findByOffset(offset, limit);
+    @Args('first', ParseIntPipe) first: number,
+    @Args('after') after?: string,
+  ): Promise<SharkConnection> {
+    return this.sharksService.findByCursor(first, after);
   }
 
   @Query('shark')

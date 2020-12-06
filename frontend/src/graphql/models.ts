@@ -1,7 +1,7 @@
-import { Shark } from './graphql.schema';
+import { SharkConnection } from './graphql.schema';
 
 interface SharksModel {
-  sharks: Shark[];
+  sharks: SharkConnection;
 }
 
 export default SharksModel;

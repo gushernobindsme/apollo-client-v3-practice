@@ -5,7 +5,7 @@ import SharksModel from '../graphql/models';
 
 export type TableProps = {
   data?: SharksModel;
-  fetchMore: (arg0: { variables: { offset: any } }) => any;
+  fetchMore: (arg0: { variables: { cursor: any } }) => any;
   updateShark(id: number, rate: number): void;
 };
 
@@ -14,46 +14,51 @@ const Table: React.FC<TableProps> = ({ data, fetchMore, updateShark }) => {
     <>
       <HTMLTable striped={true}>
         <thead>
-          <tr>
-            <th>Id</th>
-            <th>OriginalTitle</th>
-            <th>JapaneseTitle</th>
-            <th>Rate</th>
-          </tr>
+        <tr>
+          <th>Id</th>
+          <th>OriginalTitle</th>
+          <th>JapaneseTitle</th>
+          <th>Rate</th>
+        </tr>
         </thead>
         <tbody>
-          {data &&
-            data.sharks.map((shark) => {
-              return (
-                <tr key={shark.id}>
-                  <th>{shark.id}</th>
-                  <td>{shark.originalTitle}</td>
-                  <td>{shark.japaneseTitle}</td>
-                  <td>
-                    {shark.id && (
-                      <Ratings
-                        id={shark.id}
-                        rate={shark.rate || 0}
-                        mutation={updateShark}
-                      />
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+        {data &&
+        data.sharks &&
+        data.sharks.edges &&
+        data.sharks.edges.map((shark) => {
+          const node = shark.node;
+          return (
+            <tr key={node?.id}>
+              <th>{node?.id}</th>
+              <td>{node?.originalTitle}</td>
+              <td>{node?.japaneseTitle}</td>
+              <td>
+                {node?.id && (
+                  <Ratings
+                    id={node.id}
+                    rate={node.rate || 0}
+                    mutation={updateShark}
+                  />
+                )}
+              </td>
+            </tr>
+          );
+        })}
         </tbody>
       </HTMLTable>
-      <Button
-        onClick={async () => {
-          await fetchMore({
-            variables: {
-              offset: data?.sharks.length,
-            },
-          });
-        }}
-      >
-        fetch more
-      </Button>
+      {data && data.sharks.pageInfo?.hasNextPage && (
+        <Button
+          onClick={async () => {
+            await fetchMore({
+              variables: {
+                cursor: data?.sharks?.pageInfo?.endCursor,
+              },
+            });
+          }}
+        >
+          fetch more
+        </Button>
+      )}
     </>
   );
 };
