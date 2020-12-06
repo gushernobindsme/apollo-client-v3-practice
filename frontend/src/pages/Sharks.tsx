@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Dialog, HTMLTable } from '@blueprintjs/core';
+import { Button, Dialog } from '@blueprintjs/core';
 import { useSharks } from '../graphql/hooks';
-import Ratings from '../components/Ratings';
 import CreateDialog from '../components/CreateDialog';
+import Table from '../components/Table';
 
 const Sharks: React.FC = () => {
   const {
@@ -28,48 +28,7 @@ const Sharks: React.FC = () => {
       >
         add new shark movie
       </Button>
-      <HTMLTable striped={true}>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>OriginalTitle</th>
-            <th>JapaneseTitle</th>
-            <th>Rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.sharks.map((shark) => {
-              return (
-                <tr key={shark.id}>
-                  <th>{shark.id}</th>
-                  <td>{shark.originalTitle}</td>
-                  <td>{shark.japaneseTitle}</td>
-                  <td>
-                    {shark.id && (
-                      <Ratings
-                        id={shark.id}
-                        rate={shark.rate || 0}
-                        mutation={updateShark}
-                      />
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </HTMLTable>
-      <Button
-        onClick={async () => {
-          await fetchMore({
-            variables: {
-              offset: data?.sharks.length,
-            },
-          });
-        }}
-      >
-        fetch more
-      </Button>
+      <Table data={data} fetchMore={fetchMore} updateShark={updateShark} />
       <Dialog
         isOpen={showDialog}
         onClose={() => {
