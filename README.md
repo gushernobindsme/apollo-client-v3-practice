@@ -8,14 +8,14 @@ This repository consists of the following modules:
 
 # Usage
 ## Backend
-```cmd
+```bash
 cd /backend
 yarn install
 yarn start
 ```
 
 ## Frontend
-```cmd
+```bash
 cd /frontend
 yarn install
 yarn start
