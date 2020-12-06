@@ -16,7 +16,10 @@ export class UpdateSharkInput {
 }
 
 export abstract class IQuery {
-  abstract sharks(offset?: number, limit?: number): Shark[] | Promise<Shark[]>;
+  abstract sharks(
+    first: number,
+    after?: string,
+  ): SharkConnection | Promise<SharkConnection>;
 
   abstract shark(id: number): Shark | Promise<Shark>;
 }
@@ -32,4 +35,19 @@ export class Shark {
   originalTitle?: string;
   japaneseTitle?: string;
   rate?: number;
+}
+
+export class SharkConnection {
+  edges?: SharkEdge[];
+  pageInfo?: PageInfo;
+}
+
+export class SharkEdge {
+  node?: Shark;
+  cursor?: string;
+}
+
+export class PageInfo {
+  endCursor?: string;
+  hasNextPage?: boolean;
 }

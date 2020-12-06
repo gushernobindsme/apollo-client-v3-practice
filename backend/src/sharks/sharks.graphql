@@ -1,5 +1,5 @@
 type Query {
-    sharks(offset: Int, limit: Int): [Shark]
+    sharks(first: Int!, after: String): SharkConnection
     shark(id: Int!): Shark
 }
 
@@ -13,6 +13,21 @@ type Shark {
     originalTitle: String
     japaneseTitle: String
     rate: Int
+}
+
+type SharkConnection {
+    edges: [SharkEdge]
+    pageInfo: PageInfo
+}
+
+type SharkEdge {
+    node: Shark
+    cursor: String
+}
+
+type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean
 }
 
 input CreateSharkInput {

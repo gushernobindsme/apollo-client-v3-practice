@@ -1,12 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const GET_SHARKS = gql`
-  query getSharks($offset: Int, $limit: Int) {
-    sharks(offset: $offset, limit: $limit) {
-      id
-      originalTitle
-      japaneseTitle
-      rate
+  query getSharks($cursor: String) {
+    sharks(first: 10, after: $cursor) {
+      edges {
+        cursor
+        node {
+          id
+          originalTitle
+          japaneseTitle
+          rate
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 `;
