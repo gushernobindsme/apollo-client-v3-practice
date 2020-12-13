@@ -17,12 +17,20 @@ export const useSharks = () => {
   );
 
   const [createSharkMutation] = useMutation(CREATE_SHARK, {
-    refetchQueries: [
-      {
-        query: GET_SHARKS,
-        variables: { cursor: '' },
-      },
-    ],
+    update(cache, { data: { _createShark } }) {
+      if (!data?.sharks.pageInfo?.hasNextPage) {
+        cache.writeQuery({
+          query: GET_SHARKS,
+          data: {
+            sharks: {
+              pageInfo: {
+                hasNextPage: true,
+              },
+            }
+          },
+        });
+      }
+    },
   });
 
   const [updateSharkMutation] = useMutation(UPDATE_SHARK, {
