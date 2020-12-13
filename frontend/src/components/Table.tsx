@@ -2,10 +2,13 @@ import React from 'react';
 import { Button, HTMLTable } from '@blueprintjs/core';
 import Ratings from './Ratings';
 import SharksModel from '../graphql/models';
+import { ApolloQueryResult } from '@apollo/client/core';
 
 export type TableProps = {
   data?: SharksModel;
-  fetchMore: (arg0: { variables: { offset: any } }) => any;
+  fetchMore: (fetchMoreQueryOptions: {
+    variables: { offset: number };
+  }) => Promise<ApolloQueryResult<SharksModel>>;
   updateShark(id: number, rate: number): void;
 };
 
@@ -45,9 +48,10 @@ const Table: React.FC<TableProps> = ({ data, fetchMore, updateShark }) => {
       </HTMLTable>
       <Button
         onClick={async () => {
+          const currentLength = data?.sharks.length || 0;
           await fetchMore({
             variables: {
-              offset: data?.sharks.length,
+              offset: currentLength,
             },
           });
         }}

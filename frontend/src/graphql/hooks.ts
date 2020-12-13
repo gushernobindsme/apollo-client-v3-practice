@@ -16,21 +16,7 @@ export const useSharks = () => {
     },
   );
 
-  const [createSharkMutation] = useMutation(CREATE_SHARK, {
-    update(cache, { data: { createShark } }) {
-      const newShark = {
-        id: createShark.id,
-        originalTitle: createShark.originalTitle,
-        japaneseTitle: createShark.japaneseTitle,
-      };
-      cache.writeQuery({
-        query: GET_SHARKS,
-        data: {
-          sharks: [...(data?.sharks || []), newShark],
-        },
-      });
-    },
-  });
+  const [createSharkMutation] = useMutation(CREATE_SHARK);
 
   const [updateSharkMutation] = useMutation(UPDATE_SHARK, {
     update(cache, { data: { updateShark } }) {
